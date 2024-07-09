@@ -53,7 +53,7 @@ public class Main {
 
         System.out.print("Enter the password: ");
         String password = scanner.next();
-        String passwordPattern = "^(?=.*[A-Z]).{8,}$";
+        String passwordPattern = "^(?=.*[A-Z])(?=.*\\d).{8,}$";
         Pattern compiledPattern5 = Pattern.compile(passwordPattern);
         Matcher matcher5 = compiledPattern5.matcher(password);
         if(matcher5.matches()){
