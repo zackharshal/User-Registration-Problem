@@ -50,5 +50,16 @@ public class Main {
         }else{
             System.out.println("Invalid mobile number.");
         }
+
+        System.out.print("Enter the password: ");
+        String password = scanner.next();
+        String passwordPattern = "^.{8,}$";
+        Pattern compiledPattern5 = Pattern.compile(passwordPattern);
+        Matcher matcher5 = compiledPattern5.matcher(password);
+        if(matcher5.matches()){
+            System.out.println("Valid password.");
+        }else{
+            System.out.println("Invalid password.");
+        }
     }
 }
