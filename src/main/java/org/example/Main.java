@@ -39,6 +39,16 @@ public class Main {
             System.out.println("Invalid email.");
         }
 
-
+        System.out.print("Enter the mobile number: ");
+        scanner.nextLine();
+        String mobileNumber = scanner.nextLine();
+        String mobilePattern = "^\\d{2} \\d{10}$";
+        Pattern compiledPattern4 = Pattern.compile(mobilePattern);
+        Matcher matcher4 = compiledPattern4.matcher(mobileNumber);
+        if(matcher4.matches()){
+            System.out.println("Valid mobile number.");
+        }else{
+            System.out.println("Invalid mobile number.");
+        }
     }
 }
