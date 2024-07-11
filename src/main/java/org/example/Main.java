@@ -27,17 +27,21 @@ public class Main {
         }else{
             System.out.println("Invalid last name.");
         }
-
-        System.out.print("Enter the email: ");
-        String email = scanner.next();
-        String emailPattern = "^[a-zA-Z0-9._%+-]+\\.[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}(\\.[a-zA-Z]{2,6})?$";
-        Pattern compiledPattern3 = Pattern.compile(emailPattern);
-        Matcher matcher3 = compiledPattern3.matcher(email);
-        if(matcher3.matches()){
-            System.out.println("Valid email.");
-        }else{
-            System.out.println("Invalid email.");
+        System.out.print("Enter the number of emails you want to enter: ");
+        int emailNum = scanner.nextInt();
+        for(int i =0; i < emailNum; i++){
+            System.out.print("Enter the email: ");
+            String email = scanner.next();
+            String emailPattern = "^[a-zA-Z0-9._%+-]+\\.[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}(\\.[a-zA-Z]{2,6})?$";
+            Pattern compiledPattern3 = Pattern.compile(emailPattern);
+            Matcher matcher3 = compiledPattern3.matcher(email);
+            if(matcher3.matches()){
+                System.out.println("Valid email.");
+            }else{
+                System.out.println("Invalid email.");
+            }
         }
+
 
         System.out.print("Enter the mobile number: ");
         scanner.nextLine();
