@@ -53,13 +53,23 @@ public class Main {
 
         System.out.print("Enter the password: ");
         String password = scanner.next();
-        String passwordPattern = "^(?=.*[A-Z])(?=.*\\d).{8,}$";
+        String passwordPattern = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+        String specialCharacterPattern = "[@$!%*?&]";
+
         Pattern compiledPattern5 = Pattern.compile(passwordPattern);
+        Pattern specialCharacterCompiledPattern = Pattern.compile(specialCharacterPattern);
+
         Matcher matcher5 = compiledPattern5.matcher(password);
-        if(matcher5.matches()){
-            System.out.println("Valid password.");
-        }else{
-            System.out.println("Invalid password.");
+        Matcher specialCharacterMatcher = specialCharacterCompiledPattern.matcher(password);
+
+        int specialCharacterCount = 0;
+        while (specialCharacterMatcher.find()) {
+            specialCharacterCount++;
+        }
+        if (matcher5.matches() && specialCharacterCount == 1) {
+            System.out.println(password + " is a valid password.");
+        }else {
+            System.out.println(password + " is not a valid password.");
         }
     }
 }
