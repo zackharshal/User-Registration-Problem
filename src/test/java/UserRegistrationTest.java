@@ -1,6 +1,8 @@
 import org.example.UserRegistration;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class UserRegistrationTest {
 
@@ -42,7 +44,22 @@ public class UserRegistrationTest {
         UserRegistration test = new UserRegistration();
         String result = test.passwordP("Nitish*13");
         Assert.assertEquals("HAPPY", result);
-
     }
+
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "nitish.prjapati@gmail.com",
+            "harshal.gotarne@gmail.com",
+            "amruta.shinde@gmail.com",
+            "anjali.patil@gmail.com"
+    })
+
+    public void validEmail(String mail){
+        UserRegistration test = new UserRegistration();
+        String result = test.eMail(mail);
+        Assert.assertEquals(result, "HAPPY");
+    }
+
 
 }
