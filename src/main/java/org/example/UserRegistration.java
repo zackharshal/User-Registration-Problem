@@ -1,55 +1,48 @@
 package org.example;
-
+import java.util.function.Predicate;
 import java.util.regex.*;
 
 public class UserRegistration {
+
+    private static final String NAME_PATTERN = "^[A-Z][a-zA-Z]{2,}$";
+    private static final String EMAIL_PATTERN = "^[a-zA-Z0-9.%+-]+\\.[a-zA-Z0-9.%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}(\\.[a-zA-Z]{2,6})?$";
+    private static final String PHONE_PATTERN = "^\\d{2} \\d{10}$";
+    private static final String PASSWORD_PATTERN = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+
+
+    public static boolean validate(String input, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
+
     public boolean fName(String firstName) throws CustomException{
-        if(firstName.isEmpty()){
-            throw new IllegalArgumentException("Wrong input");
-        }
-        String firstNamePattern = "^[A-Z][a-zA-Z]{2,}$";
-        Pattern compiledPattern1 = Pattern.compile(firstNamePattern);
-        Matcher matcher1 = compiledPattern1.matcher(firstName);
-        if(matcher1.matches()){
+        Predicate<String> validateFirstName = name -> validate(name, NAME_PATTERN);
+        if(validateFirstName.test(firstName)){
             return true;
         }else{
             throw new CustomException("Invalid first name");
         }
     }
     public boolean lName(String lastName) throws CustomException{
-        if(lastName.isEmpty()){
-            throw new IllegalArgumentException("Wrong input");
-        }
-        String lastNamePattern = "^[A-Z][a-zA-Z]{2,}$";
-        Pattern compiledPattern2 = Pattern.compile(lastNamePattern);
-        Matcher matcher2 = compiledPattern2.matcher(lastName);
-        if(matcher2.matches()){
+        Predicate<String> validateLastName = name -> validate(name, NAME_PATTERN);
+        if(validateLastName.test(lastName)){
             return true;
         }else{
             throw new CustomException("Invalid last name");
         }
     }
     public boolean eMail(String email) throws CustomException{
-        if(email.isEmpty()){
-            throw new IllegalArgumentException("Wrong input");
-        }
-        String emailPattern = "^[a-zA-Z0-9._%+-]+\\.[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}(\\.[a-zA-Z]{2,6})?$";
-        Pattern compiledPattern3 = Pattern.compile(emailPattern);
-        Matcher matcher3 = compiledPattern3.matcher(email);
-        if(matcher3.matches()){
+        Predicate<String> validateEmail = e -> validate(e, EMAIL_PATTERN);
+        if(validateEmail.test(email)){
             return true;
         }else{
             throw new CustomException("Invalid email");
         }
     }
     public boolean mNumber(String mobileNumber) throws CustomException{
-        if(mobileNumber.isEmpty()){
-            throw new IllegalArgumentException("Wrong input");
-        }
-        String mobilePattern = "^\\d{2} \\d{10}$";
-        Pattern compiledPattern4 = Pattern.compile(mobilePattern);
-        Matcher matcher4 = compiledPattern4.matcher(mobileNumber);
-        if(matcher4.matches()){
+        Predicate<String> validatePhone = phone -> validate(phone, PHONE_PATTERN);
+        if(validatePhone.test(mobileNumber)){
             return true;
         }else{
             throw new CustomException("Invalid mobile number");
@@ -57,23 +50,8 @@ public class UserRegistration {
     }
 
     public boolean passwordP(String password) throws CustomException{
-        if(password.isEmpty()){
-            throw new IllegalArgumentException("Wrong input");
-        }
-        String passwordPattern = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
-        String specialCharacterPattern = "[@$!%*?&]";
-
-        Pattern compiledPattern5 = Pattern.compile(passwordPattern);
-        Pattern specialCharacterCompiledPattern = Pattern.compile(specialCharacterPattern);
-
-        Matcher matcher5 = compiledPattern5.matcher(password);
-        Matcher specialCharacterMatcher = specialCharacterCompiledPattern.matcher(password);
-
-        int specialCharacterCount = 0;
-        while (specialCharacterMatcher.find()) {
-            specialCharacterCount++;
-        }
-        if (matcher5.matches() && specialCharacterCount == 1) {
+        Predicate<String> validatePassword = pass -> validate(pass, PASSWORD_PATTERN);
+        if (validatePassword.test(password)) {
             return true;
         }else {
             throw new CustomException("Invalid password");

@@ -87,7 +87,7 @@ public class UserRegistrationTest {
     @Test
     public void validPasswordTest(){
         try{
-            Assert.assertTrue(test.passwordP("harhaL@17"));
+            Assert.assertTrue(test.passwordP("Harshal*25"));
         }catch (CustomException e){
             Assert.fail("Exception should not have been thrown");
         }
